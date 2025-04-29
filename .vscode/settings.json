@@ -1,0 +1,4 @@
+{
+  "eslint.validate": ["vue", "typescript"],
+  "editor.formatOnSave": true,
+}

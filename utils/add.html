@@ -1,0 +1,74 @@
+<script type="text/javascript" charset="UTF-8" src="https://oi.uutalk.io/web/appinstall.js"></script>
+<script type="text/javascript">
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+    // 从查询参数中获取Base64编码的字符串
+    const base64String = getQueryParameter('data');
+
+  var data = AppInstall.parseUrlParams();// js中提供的api，解析当前网页url中的查询参数并对data进行赋值
+  new AppInstall({// 初始化方法，与openinstall服务器交互，应尽早调用
+    appKey : "unq58ip7",// appKey为openinstall为应用分配的唯一id（必须传入）
+  /*指定Web初始化域名*/
+  server : "https://oi.uutalk.io",
+    /*初始化完成的回调函数，可选*/
+    onready : function() {
+    /*用户点击某个按钮时(假定按钮id为downloadButton)，安装app*/
+          var m = this, button = document.getElementById("downloadButton");
+        m.schemeWakeup({data: {data: base64String}, channelCode: "uutalk-app" });
+          button.onclick = function() {
+            m.wakeupOrInstall({data: {data: base64String}, channelCode: "uutalk-app" });
+              return false;
+          };
+  }
+ }, data);// 初始化时传入data，作为一键拉起/App传参安装时候的参数
+</script>
+
+
+<!-- 
+
+
+onMounted(() => {
+  // 初始化 OpenInstall 脚本
+  const base64String = new URLSearchParams(window.location.search).get("data");
+  console.log(base64String);
+  const init = () => {
+    const data = window?.AppInstall?.parseUrlParams?.();
+    new window.AppInstall(
+      {
+        appKey: "unq58ip7",
+        server: "https://oi.uutalk.io",
+        onready() {
+          const m = this;
+          const button = document.getElementById("downloadButton");
+          m.schemeWakeup({
+            data: { data: base64String },
+            channelCode: "uutalk-app",
+          });
+          if (button) {
+            button.onclick = function () {
+              m.wakeupOrInstall({
+                data: { data: base64String },
+                channelCode: "uutalk-app",
+              });
+              return false;
+            };
+          }
+        },
+      },
+      data
+    );
+  };
+
+  if (window.AppInstall) {
+    // init();
+  } else {
+    const script = document.createElement("script");
+    script.src = "https://oi.uutalk.io/web/appinstall.js";
+    script.charset = "UTF-8";
+    // script.onload = init;
+    document.body.appendChild(script);
+  }
+});
+-->
