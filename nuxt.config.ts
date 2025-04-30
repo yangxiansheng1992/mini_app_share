@@ -9,7 +9,11 @@ export default defineNuxtConfig({
   // ssr: !isDev, // 开发时关闭 SSR 加快热更新
   devtools: { enabled: false },
   // typescript: { typeCheck: true },
-
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL || "http://localhost:3000",
+    },
+  },
   app: {
     head: {
       title: "视频分享",

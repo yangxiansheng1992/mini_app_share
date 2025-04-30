@@ -16,7 +16,3 @@ logs
 # 杂项
 .DS_Store
 
-# 本地环境文件
-.env
-.env.*
-!.env.example
